@@ -9,7 +9,7 @@ For learning Vim basics with minimum effort, I recommend going through the tutor
 To get into configuration, try [vim's .vimrc example](https://github.com/vim/vim/blob/master/runtime/vimrc_example.vim).
 
 also checkout some plugins:
-- [NerdTree](http://www.vim.org/scripts/script.php?script_id=1658]
+- [NerdTree](http://www.vim.org/scripts/script.php?script_id=1658)
 - i'll add more later
 
 ##resources
