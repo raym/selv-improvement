@@ -16,7 +16,7 @@ Or perhaps you have to follow a ‘house-style’ which specifies that, say, htm
 
 You can set these preferences in your `.vimrc` file, by hooking into the `FileType` event with an autocommand:
 
-```
+```viml
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
@@ -27,13 +27,13 @@ autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
 
 This command consists of two parts:
 
-```
+```viml
 autocmd FileType javascript
 ```
 
 The first half indicates that when the filetype is set to javascript, the second half of the command will be executed. The second half
 
-```
+```viml
 setlocal ts=4 sts=4 sw=4 noexpandtab
 ```
 
@@ -41,19 +41,19 @@ calls `setlocal`, applying the following settings to the current buffer, which i
 
 This functionality is only available when Vim is compiled with the `autocmd` flag enabled. You can check if your version of Vim has this capability by running the command:
 
-```
+```viml
 :version
 ```
 
 If you see a minus sign in front of `autocmd`, then this functionality is not available in your copy of Vim. A plus sign means it is available. You also need to enable filetype detection, by including the following line in your `.vimrc`:
 
-```
+```viml
 filetype on
 ```
 
 You can test if your version of Vim has been compiled with support for autocommands using a conditional statement:
 
-```
+```viml
 if has("audocmd")
   ...
 endif
@@ -65,26 +65,26 @@ By placing all of your autocommands inside this block, you can keep your `.vimrc
 
 There will be times when you are editing a file, and Vim is unable to guess the filetype. You can find out what the current filetype is, by running:
 
-```
+```viml
 :set filetype?
 ```
 
 or the shorthand:
 
-```
+```viml
 :set ft?
 ```
 
 I would like Vim to treat this RSS file as XML. I can tell it to do so by running:
 
-```
+```viml
 :set filetype=xml
 "set filetype EQUALS xml"
 ```
 
 or the dedicated command:
 
-```
+```viml
 :setfiletype xml
 "one word: setfiletype SPACE xml"
 ```
@@ -94,26 +94,26 @@ Match extensions to filetypes
 
 To tell Vim to always treat files with the `rss` extension as XML, I can put the following in my `.vimrc` file:
 
-```
+```viml
 autocmd BufNewFile,BufRead *.rss setfiletype xml
 ```
 
 The first half
 
-```
+```viml
 autocmd BufNewFile,BufRead *.rss
 ```
 
 indicates that when a new or existing file with the `rss` extension is opened, the second half of the command will be executed.
 
-```
+```viml
 setfiletype xml
 ```
 
 the second half sets the filetype to xml.
 
 It is possible to specify multiple patterns to be matched when opening a file. Just separate them with a comma. So the autocommand could be tweaked so that it also match atom files.
-```
+```viml
 autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml
 ```
 

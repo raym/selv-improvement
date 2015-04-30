@@ -13,18 +13,15 @@ let loaded_matchparen = 1
 syntax on
 color blackboard " http://www.vim.org/scripts/script.php?script_id=2280
 
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces
-" remove whitespaces right before filesave
-autocmd BufWritePre * :%s/\s\+$//e " replace '*' with e.g. '*.txt' -- one way to limit when this runs
-" restrict the whitespace strip for specific file types
-" autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> :%s/\s\+$//e
+" \p to toggle paste mode and autoindent mode
+nmap <leader>p :set autoindent!<CR>
 
 """"""""""""""""""
 """"" vimcasts.org
 """"""""""""""""""
 
 """""""""""""
-""" episode 1
+""" episode 1 show invisibles
 """""""""""""
 set list
 " Shortcut to rapidly toggle `set list`
@@ -37,7 +34,7 @@ highlight NonText guifg=#ffffff
 highlight SpecialKey guifg=#ffffff
 
 """""""""""""
-""" episode 2
+""" episode 2 tabs and spaces
 """""""""""""
 set ts=2 sts=2 sw=2 expandtab
 " function for settin tabstop, softtabstop and shiftwidth to the same value
@@ -70,7 +67,7 @@ function! SummarizeTabs()
 endfunction
 
 """""""""""""
-""" episode 3
+""" episode 3 whitespace preferences and filetypes
 """""""""""""
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
@@ -90,7 +87,28 @@ if has("autocmd")
   "autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
+"""""""""""""
+""" episode 4 tidying whitespace
+"""""""""""""
+command! -nargs=* Trim call <SID>StripTrailingWhitespaces()
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+" for the autocmd below, you can replace '*' with e.g. '*.html,*.css,*.js,*.etc' -- one way to limit when this runs
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
+"""""""""""""
 " episode 24
+"""""""""""""
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
