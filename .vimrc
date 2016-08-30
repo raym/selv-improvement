@@ -1,4 +1,47 @@
-"execute pathogen#infect()
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+Plugin 'godlygeek/tabular'
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Avoid a name conflict with L9
+"Plugin 'user/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
 set number
 set autoindent
 set nocompatible
@@ -13,18 +56,15 @@ let loaded_matchparen = 1
 syntax on
 color blackboard " http://www.vim.org/scripts/script.php?script_id=2280
 
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces
-" remove whitespaces right before filesave
-autocmd BufWritePre * :%s/\s\+$//e " replace '*' with e.g. '*.txt' -- one way to limit when this runs
-" restrict the whitespace strip for specific file types
-" autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> :%s/\s\+$//e
+" \p to toggle paste mode and autoindent mode
+nmap <leader>p :set autoindent!<CR>
 
 """"""""""""""""""
 """"" vimcasts.org
 """"""""""""""""""
 
 """""""""""""
-""" episode 1
+""" episode 1 show invisibles
 """""""""""""
 set list
 " Shortcut to rapidly toggle `set list`
@@ -37,7 +77,7 @@ highlight NonText guifg=#ffffff
 highlight SpecialKey guifg=#ffffff
 
 """""""""""""
-""" episode 2
+""" episode 2 tabs and spaces
 """""""""""""
 set ts=2 sts=2 sw=2 expandtab
 " function for settin tabstop, softtabstop and shiftwidth to the same value
@@ -70,7 +110,7 @@ function! SummarizeTabs()
 endfunction
 
 """""""""""""
-""" episode 3
+""" episode 3 whitespace preferences and filetypes
 """""""""""""
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
@@ -90,7 +130,28 @@ if has("autocmd")
   "autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
+"""""""""""""
+""" episode 4 tidying whitespace
+"""""""""""""
+command! -nargs=* Trim call <SID>StripTrailingWhitespaces()
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+" for the autocmd below, you can replace '*' with e.g. '*.html,*.css,*.js,*.etc' -- one way to limit when this runs
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+
+"""""""""""""
 " episode 24
+"""""""""""""
 " Source the vimrc file after saving it
 if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC

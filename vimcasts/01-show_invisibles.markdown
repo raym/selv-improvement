@@ -11,7 +11,7 @@ TextMate has an option to ‘Show invisibles’, which lets you see tab and end-
 
 In Vim, we can display invisible characters by enabling `:set list`. You can hide these characters again by running `:set nolist`, or you can toggle between showing and hiding them by running `:set list!`. If you want to be able to do this quickly, you might like to map the toggling command to something more convenient. Try putting the following in your .vimrc:
 
-```
+```viml
 nmap <leader>l :set list!<CR>
 ```
 
@@ -23,13 +23,13 @@ By default, the tab character is represented literally as `^I`, and end-of-lines
 
 We can customise the symbols used to represent invisible characters by changing the `listchars` setting. If you want to use the same symbols as TextMate does, put the following into your .vimrc:
 
-```
+```viml
 set listchars=tab:▸\ ,eol:¬
 ```
 
 If you like, you can customise other invisible characters besides tabs and end-of-lines. For more information, get help on listchars:
 
-```
+```viml
 :help listchars
 ```
 
@@ -37,7 +37,7 @@ If you like, you can customise other invisible characters besides tabs and end-o
 
 Depending on the colorscheme you are using, you may want to change the colors of tab and end-of-lines symbols. I prefer to make them close in color to the background, so that they are only just visible, and not too distracting. The syntax keyword for an end-of-line is “NonText”, and for tab characters it is “SpecialKey”. I have added these lines to my prefered colorscheme file:
 
-```
+```viml
 "Invisible character colors
 highlight NonText guifg=#4a4a59
 highlight SpecialKey guifg=#4a4a59
@@ -49,14 +49,14 @@ You shouldn't have any problems if you copy and paste the `listchars` setting fr
 
 In insert mode, press ctrl-V, then type u followed by the numeric code for the symbol you want to insert. e.g.:
 
-```
+```viml
 ctrl-v u00ac inserts '¬' (the not sign)
 ctrl-v u25b8 inserts '▸' (the triangle symbol)
 ```
 
 You can also insert a tab character in insert mode by typing:
 
-```
+```viml
 ctrl-v ctrl-i
 ```
 

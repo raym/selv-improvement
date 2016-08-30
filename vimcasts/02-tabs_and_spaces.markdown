@@ -64,7 +64,7 @@ As I mentioned earlier, if you prefer to work with spaces, then it is preferable
 
 So it would be most convenient if we could assign the same value to tabstop, softtabstop and shiftwidth simultaneously. Here is a little bit of vimscript that allows you to do just that. Copy this code from the shownotes directly into your .vimrc file:
 
-```
+```viml
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
 function! Stab()
