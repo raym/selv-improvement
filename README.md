@@ -1,7 +1,7 @@
 # selv-improvement
 
 ```
-git clone <repo> ~/.vim
-ln -s ~/.vim/nvim/ ~/.config/nvim
-ln -s ~/.vim/nvim/init.vim ~/.vimrc
+git clone <repo> ~/.config/nvim
+ln -s ~/.config/nvim ~/.vim
+ln -s ~/.config/nvim/init.vim ~/.vimrc
 ```
