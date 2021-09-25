@@ -1,6 +1,7 @@
 "execute pathogen#infect()
 set number
 set autoindent
+set colorcolumn=81
 set nocompatible
 " tabstop, softtabstop, shiftwidth set farther down in the file
 set ruler
@@ -35,6 +36,8 @@ set listchars=trail:☠,tab:^I,eol:$
 "Invisible character colors (not working yet... osx?)
 highlight NonText guifg=#ffffff
 highlight SpecialKey guifg=#ffffff
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 
 """""""""""""
 """ episode 2
