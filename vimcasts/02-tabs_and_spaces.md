@@ -1,4 +1,4 @@
-#Tabs and Spaces
+# Tabs and Spaces
 \#2
 This is a transcript of screencast 2.
 Jan 5, 2010
@@ -14,19 +14,19 @@ Vim offers very granular control over whitespace. There are 4 settings that can 
 
 The best way to illustrate how each of these settings works is to show examples with different settings.
 
-##Defaults: ts=8 sts=0 sw=8 noexpandtab
+## Defaults: ts=8 sts=0 sw=8 noexpandtab
 
 By default, Vim sets tabstop to 8, with expandtab switched off. This means that pressing the tab key in insert mode inserts a single tab character, whose width is 8 columns. The backspace key, unsurprisingly, deletes the tab character.
 
 In normal mode, we can use the `>` [greater-than] command to shift a selection right, and this is achieved by prepending a single tab character at the beginning of each selected line. The `<` [less-than] command shifts the selected text left by deleting a single tab character.
 
-##ts=8 sts=0 sw=8 expandtab
+## ts=8 sts=0 sw=8 expandtab
 
 Lets begin by switching expandtab on. This causes the tab key to insert space characters of an equivalent width to the tab which would have otherwise been inserted, if expand tab was not enabled. The backspace key, however, just deletes a single space at a time. We’ll look at how to fix this in a minute.
 
 In normal mode, the `>` command shifts a selection to the right by prepending 8 space characters at a time, while the `<` command does the inverse.
 
-##ts=8 sts=8 sw=8 expandtab
+## ts=8 sts=8 sw=8 expandtab
 
 By setting `softtabstop` to 8, the same value as `tabstop` and `shiftwidth`, we can fix the behaviour of the backspace key in insert mode. Now, pressing backspace removes up to 8 spaces. So we can use the tab key to indent, by adding 8 spaces, and the backspace key to go the other way.
 
@@ -34,7 +34,7 @@ The behaviour of the indentation commands in normal mode is the same as before, 
 
 As a general rule, you want to make sure that `softtabstop` and `shiftwidth` are equal. That way, you can expect consistent behaviour, whether you are shifting left and right with the indentation commands in normal mode, or you are inserting and removing spaces with tab and backspace keys in insert mode.
 
-##ts=8 sts=4 sw=4 expandtab
+## ts=8 sts=4 sw=4 expandtab
 
 Lets look at an example where tabstop differs from softtabstop and shiftwidth. We’ll keep tabstop set at the default value of 8, and take softtabstop and shiftwidth down to 4, keeping expandtab enabled for now.
 
@@ -44,7 +44,7 @@ In normal mode, the indentation commands also work in increments of 4 spaces.
 
 Having expandtab enabled means that we are always inserting spaces rather than tab characters. But if any tab characters are present, their width is still dictated by the `tabstop` setting, which is 8.
 
-##ts=8 sts=4 sw=4 noexpandtab
+## ts=8 sts=4 sw=4 noexpandtab
 
 Now lets try maintaining these settings, but switching expandtab off. Expandtab tells Vim to work with spaces instead of tabs, so by disabling it, we are back to working with tabs.
 
@@ -52,11 +52,11 @@ Here we have tabstop set at 8, and softtabstop at 4. Softtabstop takes precedenc
 
 We have set shiftwidth to 4 as well, so in normal mode, the indentation commands behave in a similar fashion.
 
-##ts=4 sts=4 sw=4 noexpandtab
+## ts=4 sts=4 sw=4 noexpandtab
 
 Finally, lets try bringing tabstop down to 4. As we apply this change, we should see the existing tabs shrinking in width from 8 columns to 4. Now that there is no discrepancy between tabstop and softtabstop, we can expect tab characters to be inserted every time, whether we press the tab key in insert mode, or use the indentation commands in normal mode.
 
-##Setting ts = sts = sw simultaneously
+## Setting ts = sts = sw simultaneously
 
 If you prefer to work with tab characters, and you don’t want to throw spaces into the mix, then it is a good idea to ensure that `tabstop` always equals `softtabstop`.
 
